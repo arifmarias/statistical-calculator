@@ -1,0 +1,60 @@
+{
+  "name": "statistical-calculator",
+  "version": "2.0.0",
+  "description": "Enhanced LLM-based Statistical Calculator for Business Analytics",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "npm run download-models && electron-builder",
+    "dist": "npm run download-models && electron-builder --publish=never",
+    "download-models": "node scripts/download-models.js",
+    "test-models": "node -e \"const downloader = require('./scripts/download-models.js'); new downloader().validateDownloads().then(() => console.log('Models validated')).catch(console.error)\"",
+    "dev": "NODE_ENV=development electron ."
+  },
+  "keywords": ["statistics", "analytics", "business", "electron", "ai", "llm"],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1",
+    "chart.js": "^4.4.0",
+    "xlsx": "^0.18.5",
+    "simple-statistics": "^7.8.3"
+  },
+  "build": {
+    "appId": "com.yourcompany.statistical-calculator-enhanced",
+    "productName": "Statistical Calculator Enhanced",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "**/*",
+      "!node_modules/electron/dist/**/*"
+    ],
+    "extraResources": [
+      {
+        "from": "src/ai/models",
+        "to": "ai/models",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "target": "portable",
+      "icon": "assets/icon.ico"
+    },
+    "mac": {
+      "target": "dmg",
+      "icon": "assets/icon.icns"
+    },
+    "linux": {
+      "target": "AppImage",
+      "icon": "assets/icon.png"
+    },
+    "portable": {
+      "artifactName": "StatisticalCalculator-Enhanced-Portable.exe"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "models": {
+    "lightweight": {
+      "name": "Xenova/distilgpt2",
+      "description": "Lightweight model for low-end hardware",
+      "minMemory": 2,
+      "maxTokens": 256,
+      "temperature": 0.7,
+      "topK": 50,
+      "topP": 0.95
+    },
+    "balanced": {
+      "name": "Xenova/gpt2",
+      "description": "Balanced model for moderate hardware",
+      "minMemory": 4,
+      "maxTokens": 384,
+      "temperature": 0.8,
+      "topK": 40,
+      "topP": 0.9
+    },
+    "quality": {
+      "name": "Xenova/gpt2-medium",
+      "description": "Higher quality model for better hardware",
+      "minMemory": 8,
+      "maxTokens": 512,
+      "temperature": 0.9,
+      "topK": 30,
+      "topP": 0.85
+    }
+  },
+  "prompts": {
+    "businessInsights": {
+      "systemPrompt": "You are a business analyst expert. Provide concise, actionable insights based on statistical analysis.",
+      "templates": {
+        "marketing": "Focus on customer acquisition, conversion rates, and campaign effectiveness.",
+        "sales": "Emphasize revenue generation, lead conversion, and sales performance.",
+        "operations": "Highlight efficiency improvements, cost reduction, and process optimization.",
+        "finance": "Concentrate on profitability, cost control, and financial performance.",
+        "hr": "Address employee performance, retention, and organizational effectiveness."
+      }
+    },
+    "recommendations": {
+      "maxItems": 3,
+      "format": "actionable",
+      "priority": "high-impact"
+    }
+  },
+  "fallback": {
+    "enabled": true,
+    "useRuleBased": true,
+    "cacheInsights": true,
+    "timeout": 30000
+  },
+  "performance": {
+    "hardwareDetection": true,
+    "autoOptimize": true,
+    "backgroundLoading": false,
+    "progressCallback": true
+  },
+  "security": {
+    "offlineOnly": true,
+    "noDataTransmission": true,
+    "localProcessing": true
+  }
+}

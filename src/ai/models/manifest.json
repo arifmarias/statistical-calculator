@@ -1,0 +1,39 @@
+{
+  "version": "2.0.0",
+  "models": [
+    {
+      "name": "Xenova/distilgpt2",
+      "type": "text-generation",
+      "size": "small",
+      "capability": "business-insights",
+      "localPath": "Xenova_distilgpt2",
+      "files": {
+        "config": "config.json",
+        "tokenizer": "tokenizer.json",
+        "tokenizer_config": "tokenizer_config.json",
+        "model": "onnx/decoder_model_merged_quantized.onnx"
+      }
+    },
+    {
+      "name": "Xenova/all-MiniLM-L6-v2",
+      "type": "feature-extraction",
+      "size": "small",
+      "capability": "intent-analysis",
+      "localPath": "Xenova_all-MiniLM-L6-v2",
+      "files": {
+        "config": "config.json",
+        "tokenizer": "tokenizer.json",
+        "tokenizer_config": "tokenizer_config.json",
+        "model": "onnx/model_quantized.onnx"
+      }
+    }
+  ],
+  "downloadedAt": "2025-06-13T18:09:30.409Z",
+  "offlineReady": true,
+  "features": [
+    "intent-analysis",
+    "business-insights-generation",
+    "column-selection",
+    "statistical-method-recommendation"
+  ]
+}

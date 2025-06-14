@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Statistical Calculator - Enhanced AI Business Analytics</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="logo">
+                    <i class="fas fa-chart-line"></i>
+                    <h1>Statistical Calculator</h1>
+                    <span class="version-badge">Enhanced AI</span>
+                </div>
+                <div class="header-actions">
+                    <div class="ai-status" id="aiStatus">
+                        <i class="fas fa-robot"></i>
+                        <span id="aiStatusText">AI Initializing...</span>
+                    </div>
+                    <button class="btn btn-secondary" id="settingsBtn">
+                        <i class="fas fa-cog"></i> Settings
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Step 1: Data Upload -->
+            <section class="step-section" id="step1">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <h2>Upload Your Data</h2>
+                </div>
+                <div class="step-content">
+                    <div class="upload-area" id="uploadArea">
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Drop your file here or click to browse</h3>
+                            <p>Supports Excel (.xlsx, .xls) and CSV files</p>
+                            <input type="file" id="fileInput" accept=".csv,.xlsx,.xls" hidden>
+                            <button class="btn btn-secondary" id="browseBtn">Browse Files</button>
+                        </div>
+                    </div>
+                    <div class="file-info" id="fileInfo" style="display: none;">
+                        <div class="file-details">
+                            <i class="fas fa-file-excel"></i>
+                            <div class="file-text">
+                                <h4 id="fileName">File Name</h4>
+                                <p id="fileSize">File Size</p>
+                            </div>
+                            <button class="btn btn-danger btn-sm" id="removeFileBtn">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: Enhanced Variable Detection & Data Preview -->
+            <section class="step-section" id="step2" style="display: none;">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <h2>AI-Enhanced Data Analysis</h2>
+                </div>
+                <div class="step-content">
+                    <div class="ai-analysis-summary">
+                        <div class="ai-summary-card">
+                            <h3><i class="fas fa-brain"></i> AI Data Understanding</h3>
+                            <div id="aiDataInsights">
+                                <p>AI is analyzing your data structure and quality...</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-overview">
+                        <div class="overview-cards">
+                            <div class="overview-card">
+                                <i class="fas fa-table"></i>
+                                <div class="card-content">
+                                    <h3 id="totalRows">0</h3>
+                                    <p>Total Rows</p>
+                                </div>
+                            </div>
+                            <div class="overview-card">
+                                <i class="fas fa-columns"></i>
+                                <div class="card-content">
+                                    <h3 id="totalColumns">0</h3>
+                                    <p>Total Columns</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="variable-detection">
+                        <h3>AI-Enhanced Variable Detection</h3>
+                        <div class="variable-types">
+                            <div class="variable-type">
+                                <h4><i class="fas fa-hashtag"></i> Metric Variables</h4>
+                                <div class="variable-list" id="metricVariables"></div>
+                            </div>
+                            <div class="variable-type">
+                                <h4><i class="fas fa-sort-numeric-up"></i> Ordinal Variables</h4>
+                                <div class="variable-list" id="ordinalVariables"></div>
+                            </div>
+                            <div class="variable-type">
+                                <h4><i class="fas fa-tags"></i> Nominal Variables</h4>
+                                <div class="variable-list" id="nominalVariables"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-preview">
+                        <h3>Data Preview (First 10 rows)</h3>
+                        <div class="table-container">
+                            <table id="dataPreviewTable" class="data-table">
+                                <thead id="dataPreviewHead"></thead>
+                                <tbody id="dataPreviewBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-primary" id="proceedToQuestionBtn">
+                        <i class="fas fa-brain"></i> Proceed to AI Question Analysis
+                    </button>
+                </div>
+            </section>
+
+            <!-- Step 3: LLM-Enhanced Question Analysis -->
+            <section class="step-section" id="step3" style="display: none;">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <h2>AI-Powered Question Analysis</h2>
+                </div>
+                <div class="step-content">
+                    <div class="data-context-summary">
+                        <h3><i class="fas fa-info-circle"></i> Your Data Summary</h3>
+                        <div class="context-cards">
+                            <div class="context-card">
+                                <strong id="contextRows">0</strong> records with <strong id="contextCols">0</strong> variables
+                            </div>
+                            <div class="context-card">
+                                <strong>Available Metrics:</strong> <span id="contextMetrics"></span>
+                            </div>
+                            <div class="context-card">
+                                <strong>Available Categories:</strong> <span id="contextCategories"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="stakeholder">Who is asking? (Stakeholder Role)</label>
+                        <select id="stakeholder" class="form-control">
+                            <option value="">Select stakeholder...</option>
+                            <option value="marketing-director">Marketing Director</option>
+                            <option value="sales-manager">Sales Manager</option>
+                            <option value="operations-manager">Operations Manager</option>
+                           <option value="hr-director">HR Director</option>
+                           <option value="finance-director">Finance Director</option>
+                           <option value="ceo">CEO/Executive</option>
+                           <option value="data-analyst">Data Analyst</option>
+                           <option value="product-manager">Product Manager</option>
+                           <option value="other">Other</option>
+                       </select>
+                   </div>
+                   
+                   <div class="form-group">
+                       <label for="businessQuestion">What's your business question?</label>
+                       <textarea id="businessQuestion" class="form-control" rows="3" 
+                               placeholder="Ask your business question and AI will intelligently select relevant data and methods...&#10;Examples:&#10;• How does [metric] vary across different [category]?&#10;• What factors influence [outcome]?&#10;• What are the conversion patterns in my data?"></textarea>
+                       
+                       <div class="ai-question-help">
+                           <h4><i class="fas fa-lightbulb"></i> AI will automatically:</h4>
+                           <ul>
+                               <li>🎯 Analyze your question intent</li>
+                               <li>📊 Select relevant data columns</li>
+                               <li>📈 Choose appropriate statistical methods</li>
+                               <li>💡 Generate contextual business insights</li>
+                           </ul>
+                       </div>
+                       
+                       <div class="question-suggestions" id="questionSuggestions">
+                           <h4>💡 AI-Generated Questions Based on Your Data:</h4>
+                           <div class="suggestions-list" id="suggestionsList"></div>
+                       </div>
+                   </div>
+                   
+                   <button class="btn btn-primary btn-large" id="analyzeQuestionBtn">
+                       <i class="fas fa-brain"></i> Start AI-Powered Analysis
+                   </button>
+               </div>
+           </section>
+
+           <!-- Step 4: Enhanced AI Results -->
+           <section class="step-section" id="step4" style="display: none;">
+               <div class="step-header">
+                   <span class="step-number">4</span>
+                   <h2>AI-Enhanced Analysis Results</h2>
+               </div>
+               <div class="step-content">
+                   <div class="analysis-tabs">
+                       <button class="tab-btn active" data-tab="strategy">AI Strategy</button>
+                       <button class="tab-btn" data-tab="overview">Overview</button>
+                       <button class="tab-btn" data-tab="calculations">Calculations</button>
+                       <button class="tab-btn" data-tab="visualizations">Charts</button>
+                       <button class="tab-btn" data-tab="interpretation">Business Insights</button>
+                   </div>
+
+                   <div class="tab-content active" id="strategy">
+                       <div class="ai-strategy-display">
+                           <h3><i class="fas fa-brain"></i> AI Analysis Strategy</h3>
+                           <div id="aiStrategyContent" class="strategy-content"></div>
+                       </div>
+                   </div>
+
+                   <div class="tab-content" id="overview">
+                       <div class="analysis-summary">
+                           <h3>Analysis Summary</h3>
+                           <div id="analysisSummary" class="summary-content"></div>
+                       </div>
+                   </div>
+
+                   <div class="tab-content" id="calculations">
+                       <div class="calculations-details">
+                           <h3>Statistical Calculations</h3>
+                           <div id="calculationsContent" class="calculations-content"></div>
+                       </div>
+                   </div>
+
+                   <div class="tab-content" id="visualizations">
+                       <div class="charts-container">
+                           <h3>AI-Recommended Visualizations</h3>
+                           <div id="chartsContent" class="charts-content"></div>
+                       </div>
+                   </div>
+
+                   <div class="tab-content" id="interpretation">
+                       <div class="business-insights">
+                           <h3><i class="fas fa-lightbulb"></i> AI-Generated Business Insights</h3>
+                           <div id="businessInsights" class="insights-content">
+                               <div class="loading-spinner" id="insightsLoading">
+                                   <i class="fas fa-brain fa-spin"></i>
+                                   <p>AI is generating contextual business insights...</p>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </section>
+       </main>
+   </div>
+
+   <!-- Loading Overlay -->
+   <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+       <div class="loading-content">
+           <i class="fas fa-brain fa-spin"></i>
+           <h3 id="loadingTitle">AI Processing...</h3>
+           <p id="loadingMessage">Please wait while AI analyzes your data...</p>
+       </div>
+   </div>
+
+   <!-- Settings Modal -->
+   <div class="modal" id="settingsModal">
+       <div class="modal-content">
+           <div class="modal-header">
+               <h3>Enhanced AI Settings</h3>
+               <button class="close-btn" id="closeSettings">
+                   <i class="fas fa-times"></i>
+               </button>
+           </div>
+           <div class="modal-body">
+               <div class="setting-group">
+                   <label>AI Analysis Depth</label>
+                   <select id="analysisDepth" class="form-control">
+                       <option value="quick">Quick Analysis</option>
+                       <option value="standard" selected>Standard Analysis</option>
+                       <option value="comprehensive">Comprehensive Analysis</option>
+                   </select>
+               </div>
+               <div class="setting-group">
+                   <label>Statistical Confidence Level</label>
+                   <select id="confidenceLevel" class="form-control">
+                       <option value="90">90%</option>
+                       <option value="95" selected>95%</option>
+                       <option value="99">99%</option>
+                   </select>
+               </div>
+               <div class="setting-group">
+                   <label>AI Model Mode</label>
+                   <select id="aiMode" class="form-control">
+                       <option value="offline" selected>Offline Mode (Recommended)</option>
+                       <option value="enhanced">Enhanced Offline</option>
+                   </select>
+               </div>
+           </div>
+           <div class="modal-footer">
+               <button class="btn btn-secondary" id="cancelSettings">Cancel</button>
+               <button class="btn btn-primary" id="saveSettings">Save Settings</button>
+           </div>
+       </div>
+   </div>
+
+   <!-- Load scripts in correct order -->
+   <script src="ai/offline-transformer.js"></script>
+   <script src="ai/model-loader.js"></script>
+   <script src="ai/llm-worker.js"></script>
+   <script src="renderer.js"></script>
+</body>
+</html>

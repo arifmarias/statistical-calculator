@@ -1,0 +1,42 @@
+# AI Models - Large files
+src/ai/models/*.bin
+src/ai/models/*.onnx
+src/ai/models/*.safetensors
+src/ai/models/*.h5
+src/ai/models/*.pb
+src/ai/models/*.tflite
+src/ai/models/*.ggml
+src/ai/models/*.gguf
+src/ai/models/downloads/
+src/ai/models/cache/
+src/ai/models/*/
+
+# Keep essential config files
+!src/ai/models/*.json
+!src/ai/models/manifest.json
+!src/ai/models/README.md
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Build outputs
+dist/
+build/
+out/
+
+# Environment
+.env*
+
+# IDE
+.vscode/settings.json
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
